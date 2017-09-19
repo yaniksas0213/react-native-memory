@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   backView: {
     flex: 1,
-    backgroundColor: '#580',
+    backgroundColor: '#666',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -36,7 +36,7 @@ class Card extends React.Component {
 
   flip = () => this.setState({ isFlipped: !this.state.isFlipped });
 
-  renderFront = () => (
+  renderBack = () => (
     <TouchableWithoutFeedback onPress={this.flip}>
       <View style={styles.frontView}>
         <Text style={styles.cardText}>{this.props.children}</Text>
@@ -44,10 +44,10 @@ class Card extends React.Component {
     </TouchableWithoutFeedback>
   );
 
-  renderBack = () => (
+  renderFront = () => (
     <TouchableWithoutFeedback onPress={this.flip}>
       <View style={styles.backView}>
-        <Text style={styles.cardText}>Back</Text>
+        <Text style={styles.cardText}>A</Text>
       </View>
     </TouchableWithoutFeedback>
   );
