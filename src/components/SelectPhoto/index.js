@@ -12,7 +12,7 @@ export default class SelectPhoto extends React.Component {
 
   pickImageFromLibrary = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
+      allowsEditing: false,
       aspect: [16, 9],
     });
     if (!result.cancelled) {
@@ -22,7 +22,7 @@ export default class SelectPhoto extends React.Component {
 
   pickImageFromCamera = async () => {
     const result = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
+      allowsEditing: false,
       aspect: [16, 9],
     });
     if (!result.cancelled) {

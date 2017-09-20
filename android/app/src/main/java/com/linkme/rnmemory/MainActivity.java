@@ -1,4 +1,4 @@
-package com.linkme.rn-memory;
+package com.linkme.rnmemory;
 
 import android.os.Bundle;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.linkme.rn-memory.generated.ExponentBuildConstants;
+import com.linkme.rnmemory.generated.ExponentBuildConstants;
 import host.exp.expoview.ExponentActivity;
 
 public class MainActivity extends ExponentActivity {
