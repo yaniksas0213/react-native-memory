@@ -1,18 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 import Card from '../Card';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 10,
-  },
-});
 
 const CardList = ({ cards }) => {
   const columns = 4;
@@ -40,11 +30,7 @@ const CardList = ({ cards }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Grid>
-        {rowsToRender}
-      </Grid>
-    </View>
+    <Grid>{rowsToRender}</Grid>
   );
 };
 

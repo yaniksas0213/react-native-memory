@@ -1,30 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Easing, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
-
+import { Easing, Text, TouchableWithoutFeedback, View } from 'react-native';
 import FlipView from 'react-native-flip-view';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 5,
-  },
-  frontView: {
-    flex: 1,
-    backgroundColor: '#ccc',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  backView: {
-    flex: 1,
-    backgroundColor: '#666',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardText: {
-    fontSize: 40,
-  },
-});
+import styles from './styles';
 
 class Card extends React.Component {
   constructor(props) {
@@ -38,7 +17,7 @@ class Card extends React.Component {
 
   renderBack = () => (
     <TouchableWithoutFeedback onPress={this.flip}>
-      <View style={styles.frontView}>
+      <View style={[styles.cardView, styles.frontView]}>
         <Text style={styles.cardText}>{this.props.children}</Text>
       </View>
     </TouchableWithoutFeedback>
@@ -46,8 +25,8 @@ class Card extends React.Component {
 
   renderFront = () => (
     <TouchableWithoutFeedback onPress={this.flip}>
-      <View style={styles.backView}>
-        <Text style={styles.cardText}>A</Text>
+      <View style={[styles.cardView, styles.backView]}>
+        <Text style={styles.cardText}>{'⭐️'}</Text>
       </View>
     </TouchableWithoutFeedback>
   );
