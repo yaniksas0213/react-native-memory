@@ -1,4 +1,4 @@
-package com.linkme.rn-memory;
+package com.linkme.rnmemory;
 
 import android.support.multidex.MultiDexApplication;
 

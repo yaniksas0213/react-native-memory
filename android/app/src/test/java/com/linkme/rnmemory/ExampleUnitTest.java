@@ -1,4 +1,4 @@
-package com.linkme.rn-memory;
+package com.linkme.rnmemory;
 
 import org.junit.Test;
 
