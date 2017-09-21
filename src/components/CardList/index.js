@@ -5,8 +5,8 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import Card from '../Card';
 
 const CardList = ({ cards }) => {
-  const columns = 4;
   const cardsDuplicated = [...cards, ...cards];
+  const columns = Math.ceil(Math.sqrt(cardsDuplicated.length));
   const rows = cardsDuplicated.length / columns;
   cardsDuplicated.sort(() => (Math.round(Math.random())));
 
@@ -15,7 +15,7 @@ const CardList = ({ cards }) => {
     for (let c = 0; c < columns; c++) {
       columnsToRender.push(
         <Col key={c}>
-          <Card>{cardsDuplicated.pop().label}</Card>
+          <Card>{cardsDuplicated.pop().image}</Card>
         </Col>,
       );
     }

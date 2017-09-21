@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 36,
   },
+  cardImage: {
+    width: '100%',
+    height: '100%',
+  },
 });
 
 export default styles;

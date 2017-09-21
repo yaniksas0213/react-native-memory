@@ -17,8 +17,18 @@ class HomeScreen extends React.Component {
     }).isRequired,
   };
 
+  state = {
+    photos: [],
+    nPhotos: 8,
+  }
+
+  onImageSelected = id => (photo) => {
+    const photos = this.state.photos;
+    photos[id] = photo;
+    this.setState({ photos: photos.filter(p => p !== undefined) });
+  }
+
   render() {
-    const N_PHOTOS = 8;
     return (
       <Grid>
         <Row size={1}>
@@ -26,19 +36,23 @@ class HomeScreen extends React.Component {
             <View style={styles.text}>
               <Text style={styles.title}>Memory Game</Text>
               <Text style={styles.caption}>
-                Select {N_PHOTOS} images to play!
+                Select {this.state.nPhotos} images to play!
               </Text>
             </View>
           </Col>
         </Row>
         <Row size={3}>
-          <SelectPhotos nPhotos={N_PHOTOS} />
+          <SelectPhotos
+            nPhotos={this.state.nPhotos}
+            onImageSelected={this.onImageSelected}
+          />
         </Row>
         <Row size={1}>
           <View style={styles.playButton}>
             <Button
               title="Play!"
-              onPress={() => this.props.navigation.navigate('Cards')}
+              disabled={this.state.photos.length !== this.state.nPhotos}
+              onPress={() => this.props.navigation.navigate('Cards', { photos: this.state.photos })}
             />
           </View>
         </Row>

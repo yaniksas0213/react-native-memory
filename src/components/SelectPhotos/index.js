@@ -8,20 +8,27 @@ import styles from './styles';
 export default class SelectPhotos extends React.PureComponent {
   static propTypes = {
     nPhotos: PropTypes.number.isRequired,
+    onImageSelected: PropTypes.func.isRequired,
   };
 
   render() {
-    const rows = this.props.nPhotos / 4;
+    const rows = this.props.nPhotos / (this.props.nPhotos / 2);
     const columns = this.props.nPhotos / 2;
+    let photoIndex = 0;
 
     const renderCols = () => {
       const colsToRender = [];
       for (let c = 0; c < columns; c++) {
         colsToRender.push(
           <Col key={c}>
-            <SelectPhoto />
+            {(photoIndex < this.props.nPhotos) &&
+              <SelectPhoto
+                onImageSelected={this.props.onImageSelected(photoIndex)}
+              />
+            }
           </Col>,
         );
+        photoIndex++;
       }
       return colsToRender;
     };

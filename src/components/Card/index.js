@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Easing, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Easing, Image, Text, TouchableWithoutFeedback, View } from 'react-native';
 import FlipView from 'react-native-flip-view';
 
 import styles from './styles';
 
 class Card extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isFlipped: false,
-    };
-  }
+  state = {
+    isFlipped: false,
+  };
 
   flip = () => this.setState({ isFlipped: !this.state.isFlipped });
 
   renderBack = () => (
     <TouchableWithoutFeedback onPress={this.flip}>
       <View style={[styles.cardView, styles.frontView]}>
-        <Text style={styles.cardText}>{this.props.children}</Text>
+        <Image
+          style={styles.cardImage}
+          source={{ uri: this.props.children }}
+        />
       </View>
     </TouchableWithoutFeedback>
   );
