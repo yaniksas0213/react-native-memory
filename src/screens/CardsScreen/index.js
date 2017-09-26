@@ -7,7 +7,7 @@ import styles from './styles';
 
 class CardsScreen extends React.PureComponent {
   static navigationOptions = {
-    title: 'Play!',
+    title: 'Memory',
   };
 
   static defaultProps = {

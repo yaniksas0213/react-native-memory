@@ -33,21 +33,23 @@ export default class SelectPhoto extends React.Component {
 
   render() {
     const { image } = this.state;
+    const photoClass = image ? styles.borderGrey : styles.borderRed;
+
     return (
-      <View style={styles.photo}>
+      <View style={[styles.photo, photoClass]}>
         {image ?
           <Image
             style={styles.image}
             source={{ uri: image }}
           />
           :
-          <View>
+          <View style={styles.buttons}>
             <TouchableWithoutFeedback onPress={() => this.pickImage('camera')}>
-              <Ionicons name="md-camera" size={32} />
+              <Ionicons color="#FFF" name="md-camera" size={32} />
             </TouchableWithoutFeedback>
             <View style={styles.separator} />
             <TouchableWithoutFeedback onPress={() => this.pickImage('library')}>
-              <Ionicons name="md-images" size={32} />
+              <Ionicons color="#FFF" name="md-images" size={32} />
             </TouchableWithoutFeedback>
           </View>
         }

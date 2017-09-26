@@ -1,18 +1,29 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#FFF',
+  },
   text: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 40,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E4EDF0',
   },
   title: {
-    fontSize: 30,
-    marginBottom: 10,
+    fontSize: 44,
+    fontWeight: 'bold',
+    textAlign: 'left',
   },
   caption: {
     fontSize: 18,
+    marginTop: 10,
+    textAlign: 'left',
+    color: '#AEBCBC',
+    fontWeight: 'bold',
   },
   playButton: {
     flex: 1,

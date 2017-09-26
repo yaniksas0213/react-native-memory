@@ -12,8 +12,8 @@ export default class SelectPhotos extends React.PureComponent {
   };
 
   render() {
-    const rows = this.props.nPhotos / (this.props.nPhotos / 2);
-    const columns = this.props.nPhotos / 2;
+    const rows = this.props.nPhotos <= 2 ? 1 : 2;
+    const columns = this.props.nPhotos / rows;
     let photoIndex = 0;
 
     const renderCols = () => {

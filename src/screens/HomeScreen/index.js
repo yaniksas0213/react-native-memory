@@ -8,7 +8,7 @@ import styles from './styles';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: 'Home',
+    headerStyle: { display: 'none' },
   };
 
   static propTypes = {
@@ -19,7 +19,7 @@ class HomeScreen extends React.Component {
 
   state = {
     photos: [],
-    nPhotos: 8,
+    nPhotos: 6,
   }
 
   onImageSelected = id => (photo) => {
@@ -30,14 +30,14 @@ class HomeScreen extends React.Component {
 
   render() {
     return (
-      <Grid>
+      <Grid style={styles.container}>
         <Row size={1}>
           <Col>
             <View style={styles.text}>
-              <Text style={styles.title}>Memory Game</Text>
               <Text style={styles.caption}>
-                Select {this.state.nPhotos} images to play!
+                {'Select photos and play!'.toUpperCase()}
               </Text>
+              <Text style={styles.title}>Memory Game</Text>
             </View>
           </Col>
         </Row>
