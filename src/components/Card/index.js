@@ -14,7 +14,6 @@ class Card extends React.Component {
   renderBack = () => (
     <TouchableWithoutFeedback onPress={this.flip}>
       <View style={[styles.cardView, styles.frontView]}>
-        <Text style={styles.cardText}>{'C'}</Text>
         <Image
           style={styles.cardImage}
           source={{ uri: this.props.children }}
@@ -51,6 +50,13 @@ class Card extends React.Component {
 
 Card.propTypes = {
   children: PropTypes.string.isRequired,
+  onFlip: PropTypes.func.isRequired,
+  card: PropTypes.shape({
+    id: PropTypes.number,
+    label: PropTypes.number,
+    image: PropTypes.string,
+    flipped: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default Card;

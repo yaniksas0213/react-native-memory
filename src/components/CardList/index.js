@@ -40,6 +40,8 @@ CardList.propTypes = {
     }),
   ).isRequired,
   onFlip: PropTypes.func.isRequired,
+  rows: PropTypes.number.isRequired,
+  columns: PropTypes.number.isRequired,
 };
 
 export default CardList;

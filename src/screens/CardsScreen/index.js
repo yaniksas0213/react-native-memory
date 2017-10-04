@@ -33,12 +33,12 @@ class CardsScreen extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const sincgleCards = this.props.navigation.state.params.photos.map((photo, i) => (
+    const singleCards = this.props.navigation.state.params.photos.map((photo, i) => (
       { label: i, image: photo, flipped: false }
     ));
 
-    const cards = [...sincgleCards, ...sincgleCards]
-      .sort(() => (Math.round(Math.random())))
+    const cards = [...singleCards, ...singleCards]
+      .sort(() => Math.round(Math.random()))
       .map((card, i) => ({ ...card, id: i }));
 
     const columns = Math.ceil(Math.sqrt(cards.length));
@@ -52,57 +52,34 @@ class CardsScreen extends React.PureComponent {
     };
   }
 
-  hideCards = (cardA, cardB) => {
-    return this.state.cards.map(
-      (c) => {
-        const flippedCard = { ...c };
-        if (c.id === cardA.id || c.id === cardB.id) {
-          flippedCard.flipped = false;
-        }
-        return flippedCard;
-      },
-    );
-  }
+  hiddenCard = card => ({ ...card, flipped: false });
 
-  showCard = (card) => {
-    return this.state.cards.map(
-      (c) => {
-        const flippedCard = { ...c };
-        if (c.id === card.id) {
-          flippedCard.flipped = true;
-        }
-        return flippedCard;
-      },
-    );
-  }
+  visibleCard = card => ({ ...card, flipped: true });
+
+  hideCards = (cardA, cardB) =>
+    this.state.cards
+      .map(c => (c.id === cardA.id || c.id === cardB.id ? this.hiddenCard(c) : { ...c }));
+
+  showCard = card =>
+    this.state.cards
+      .map(c => (c.id === card.id ? this.visibleCard(c) : { ...c }));
+
+  rollback = (cardA, cardB) =>
+    this.setState({ flipping: [], cards: this.hideCards(cardA, cardB) });
+
   flipCard = (card) => {
-    let newCards = [];
-    if (this.state.flipping.length === 1) {
-      console.log('SECOND FLIP CARD');
-      const flippingCard = this.state.flipping[0];
-      if (card.label === flippingCard.label) {
-        console.log('FOUND A PAIR');
-        newCards = this.showCard(card);
-      } else {
-        console.log('WRONG PAIR');
-        newCards = this.showCard(card);
-        setTimeout(() => {
-          newCards = this.hideCards(card, flippingCard);
-          this.setState({ flipping: [], cards: newCards });
-        }, 2500);
-      }
-      this.setState({ flipping: [], cards: newCards });
+    if (this.state.flipping.length === 0) {
+      this.setState({ flipping: [card], cards: this.showCard(card) });
     } else {
-      console.log('FIRST CARD FLIP');
-      newCards = this.showCard(card);
-      this.setState({ flipping: [card], cards: newCards });
+      const flippingCard = this.state.flipping[0];
+      if (card.label !== flippingCard.label) {
+        setTimeout(() => this.rollback(card, flippingCard), 2500);
+      }
+      this.setState({ flipping: [], cards: this.showCard(card) });
     }
-    console.log("NEW CARDS", newCards);
   }
 
   render() {
-    console.log("RENDER CARDS", this.state.cards);
-    console.log("RENDER FLIPPING", this.state.flipping);
     return (
       <View style={styles.container}>
         <CardList onFlip={this.flipCard} rows={this.state.rows} columns={this.state.columns} cards={this.state.cards} />
