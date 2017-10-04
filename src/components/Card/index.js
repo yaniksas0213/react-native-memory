@@ -6,15 +6,15 @@ import FlipView from 'react-native-flip-view';
 import styles from './styles';
 
 class Card extends React.Component {
-  state = {
-    isFlipped: false,
-  };
-
-  flip = () => this.setState({ isFlipped: !this.state.isFlipped });
+  flip = () => {
+    if (this.props.card.flipped) { return; }
+    this.props.onFlip(this.props.card);
+  }
 
   renderBack = () => (
     <TouchableWithoutFeedback onPress={this.flip}>
       <View style={[styles.cardView, styles.frontView]}>
+        <Text style={styles.cardText}>{'C'}</Text>
         <Image
           style={styles.cardImage}
           source={{ uri: this.props.children }}
@@ -26,17 +26,18 @@ class Card extends React.Component {
   renderFront = () => (
     <TouchableWithoutFeedback onPress={this.flip}>
       <View style={[styles.cardView, styles.backView]}>
-        <Text style={styles.cardText}>{'⭐️'}</Text>
+        <Text style={styles.cardText}>{this.props.card.label}</Text>
       </View>
     </TouchableWithoutFeedback>
   );
 
   render() {
+    console.log('render card', this.props.card.id);
     return (
       <FlipView
         front={this.renderFront()}
         back={this.renderBack()}
-        isFlipped={this.state.isFlipped}
+        isFlipped={this.props.card.flipped}
         onFlipped={(val) => { console.log(`Flipped: ${val}`); }}
         flipAxis="y"
         flipEasing={Easing.out(Easing.ease)}
