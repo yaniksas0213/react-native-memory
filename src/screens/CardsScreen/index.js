@@ -22,6 +22,7 @@ class CardsScreen extends React.PureComponent {
 
   static propTypes = {
     navigation: PropTypes.shape({
+      navigate: PropTypes.func,
       state: PropTypes.shape({
         params: PropTypes.shape({
           photos: PropTypes.arrayOf(PropTypes.string),
@@ -49,40 +50,48 @@ class CardsScreen extends React.PureComponent {
       flipping: [],
       columns,
       rows,
+      win: false,
     };
   }
 
-  hiddenCard = card => ({ ...card, flipped: false });
+  hide = card => ({ ...card, flipped: false });
 
-  visibleCard = card => ({ ...card, flipped: true });
+  show = card => ({ ...card, flipped: true });
 
   hideCards = (cardA, cardB) =>
     this.state.cards
-      .map(c => (c.id === cardA.id || c.id === cardB.id ? this.hiddenCard(c) : { ...c }));
+      .map(c => (c.id === cardA.id || c.id === cardB.id ? this.hide(c) : { ...c }));
 
   showCard = card =>
     this.state.cards
-      .map(c => (c.id === card.id ? this.visibleCard(c) : { ...c }));
+      .map(c => (c.id === card.id ? this.show(c) : { ...c }));
 
   rollback = (cardA, cardB) =>
-    this.setState({ flipping: [], cards: this.hideCards(cardA, cardB) });
+    this.setState({ flipping: [], cards: this.hideCards(cardA, cardB), win: false });
+
+  resetGame = () => {
+    this.props.navigation.navigate('Home', { photos: [] });
+  }
 
   flipCard = (card) => {
+    let win = false;
     if (this.state.flipping.length === 0) {
-      this.setState({ flipping: [card], cards: this.showCard(card) });
+      this.setState({ flipping: [card], cards: this.showCard(card), win });
     } else {
       const flippingCard = this.state.flipping[0];
       if (card.label !== flippingCard.label) {
         setTimeout(() => this.rollback(card, flippingCard), 2500);
+      } else {
+        win = this.state.cards.filter(c => !c.flipped).length === 1;
       }
-      this.setState({ flipping: [], cards: this.showCard(card) });
+      this.setState({ flipping: [], cards: this.showCard(card), win });
     }
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <CardList onFlip={this.flipCard} rows={this.state.rows} columns={this.state.columns} cards={this.state.cards} />
+        <CardList onFlip={this.flipCard} resetGame={this.resetGame} win={this.state.win} rows={this.state.rows} columns={this.state.columns} cards={this.state.cards} win={this.state.win}/>
       </View>
     );
   }

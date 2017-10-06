@@ -31,7 +31,6 @@ class Card extends React.Component {
   );
 
   render() {
-    console.log('render card', this.props.card.id);
     return (
       <FlipView
         front={this.renderFront()}
