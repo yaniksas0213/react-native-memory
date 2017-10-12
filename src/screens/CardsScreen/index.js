@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
+import Modal from 'react-native-modalbox';
 
 import CardList from '../../components/CardList';
 import styles from './styles';
@@ -80,7 +81,7 @@ class CardsScreen extends React.PureComponent {
     } else {
       const flippingCard = this.state.flipping[0];
       if (card.label !== flippingCard.label) {
-        setTimeout(() => this.rollback(card, flippingCard), 2500);
+        setTimeout(() => this.rollback(card, flippingCard), 1500);
       } else {
         win = this.state.cards.filter(c => !c.flipped).length === 1;
       }
@@ -89,9 +90,13 @@ class CardsScreen extends React.PureComponent {
   }
 
   render() {
+    const { win, rows, columns, cards } = this.state;
     return (
       <View style={styles.container}>
-        <CardList onFlip={this.flipCard} resetGame={this.resetGame} win={this.state.win} rows={this.state.rows} columns={this.state.columns} cards={this.state.cards} win={this.state.win}/>
+        <CardList onFlip={this.flipCard} rows={rows} columns={columns} cards={cards}/>
+        <Modal isOpen={win} onClosed={this.resetGame}>
+          <Text>You have won, swipe to play again</Text>
+        </Modal>
       </View>
     );
   }

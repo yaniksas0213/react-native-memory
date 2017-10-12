@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import Modal from 'react-native-modal';
-import { Button } from 'react-native';
-
 import Card from '../Card';
 
-const CardList = ({ cards, onFlip, rows, columns, win, resetGame }) => {
+const CardList = ({ cards, onFlip, rows, columns }) => {
   let cardIndex = 0;
 
   const randomColumns = () => {
@@ -32,18 +29,6 @@ const CardList = ({ cards, onFlip, rows, columns, win, resetGame }) => {
 
   return (
     <Grid>
-      <Row>
-        <Modal isVisible={win}>
-          <Grid>
-            <Col>
-              <Button
-                title="Play Again"
-                onPress={() => resetGame()}
-              />
-            </Col>
-          </Grid>
-        </Modal>
-      </Row>
       {rowsToRender}
     </Grid>
   );
@@ -58,7 +43,6 @@ CardList.propTypes = {
   onFlip: PropTypes.func.isRequired,
   rows: PropTypes.number.isRequired,
   columns: PropTypes.number.isRequired,
-  win: PropTypes.bool.isRequired,
 };
 
 export default CardList;
