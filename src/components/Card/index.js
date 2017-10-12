@@ -25,7 +25,7 @@ class Card extends React.Component {
   renderFront = () => (
     <TouchableWithoutFeedback onPress={this.flip}>
       <View style={[styles.cardView, styles.backView]}>
-        <Text style={styles.cardText}>{this.props.card.label}</Text>
+        <Text style={styles.cardText}>{'⭐'}</Text>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -36,7 +36,6 @@ class Card extends React.Component {
         front={this.renderFront()}
         back={this.renderBack()}
         isFlipped={this.props.card.flipped}
-        onFlipped={(val) => { console.log(`Flipped: ${val}`); }}
         flipAxis="y"
         flipEasing={Easing.out(Easing.ease)}
         flipDuration={500}

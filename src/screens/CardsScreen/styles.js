@@ -13,10 +13,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   text: {
-    flex: 1,
     flexDirection: 'column',
-    color: '#E4EDF0',
-    fontSize: 20,
+    color: 'red',
+    fontSize: 25,
   },
 });
 

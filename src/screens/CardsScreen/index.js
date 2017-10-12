@@ -94,8 +94,8 @@ class CardsScreen extends React.PureComponent {
     return (
       <View style={styles.container}>
         <CardList onFlip={this.flipCard} rows={rows} columns={columns} cards={cards}/>
-        <Modal style={styles.modal} coverScreen isOpen onClosed={this.resetGame} position="center">
-          <Text style={styles.textMain}>You won! Swipe down to play again</Text>
+        <Modal style={styles.modal} coverScreen isOpen={win} onClosed={this.resetGame} position="center">
+          <Text style={styles.text}>You won! Swipe down to play again</Text>
         </Modal>
       </View>
     );
