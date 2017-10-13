@@ -19,7 +19,7 @@ class HomeScreen extends React.Component {
 
   state = {
     photos: [],
-    nPhotos: 6,
+    nPhotos: 2,
   }
 
   onImageSelected = id => (photo) => {

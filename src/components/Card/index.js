@@ -6,11 +6,10 @@ import FlipView from 'react-native-flip-view';
 import styles from './styles';
 
 class Card extends React.Component {
-  state = {
-    isFlipped: false,
-  };
-
-  flip = () => this.setState({ isFlipped: !this.state.isFlipped });
+  flip = () => {
+    if (this.props.card.flipped) { return; }
+    this.props.onFlip(this.props.card);
+  }
 
   renderBack = () => (
     <TouchableWithoutFeedback onPress={this.flip}>
@@ -26,7 +25,7 @@ class Card extends React.Component {
   renderFront = () => (
     <TouchableWithoutFeedback onPress={this.flip}>
       <View style={[styles.cardView, styles.backView]}>
-        <Text style={styles.cardText}>{'⭐️'}</Text>
+        <Text style={styles.cardText}>{'⭐'}</Text>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -36,8 +35,7 @@ class Card extends React.Component {
       <FlipView
         front={this.renderFront()}
         back={this.renderBack()}
-        isFlipped={this.state.isFlipped}
-        onFlipped={(val) => { console.log(`Flipped: ${val}`); }}
+        isFlipped={this.props.card.flipped}
         flipAxis="y"
         flipEasing={Easing.out(Easing.ease)}
         flipDuration={500}
@@ -50,6 +48,13 @@ class Card extends React.Component {
 
 Card.propTypes = {
   children: PropTypes.string.isRequired,
+  onFlip: PropTypes.func.isRequired,
+  card: PropTypes.shape({
+    id: PropTypes.number,
+    label: PropTypes.number,
+    image: PropTypes.string,
+    flipped: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default Card;
